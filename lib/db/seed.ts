@@ -95,6 +95,7 @@ export function createInitialDatabaseState(): DatabaseState {
         id: `q-${q.id}`,
         recipientId: universeId,
         orderIndex: idx + 1,
+        type: q.type || "multiple_choice",
         questionText: q.question,
         teluguText: q.teluguQuestion,
         options: q.options.map((opt) => ({

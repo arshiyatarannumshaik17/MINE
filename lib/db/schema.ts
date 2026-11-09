@@ -64,6 +64,7 @@ export interface QuizQuestionRecord {
   id: string;
   recipientId: UniverseId;
   orderIndex: number;
+  type?: string;
   questionText: string;
   teluguText?: string;
   options: {

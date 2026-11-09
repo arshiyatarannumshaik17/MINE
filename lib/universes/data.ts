@@ -1,4 +1,5 @@
 import { UniverseSpecification, UniverseId, normalizeUniverseId } from "@/lib/types";
+import { UNIVERSES_QUIZ_DATA } from "./quiz-data";
 
 export const UNIVERSES_DATA: Record<UniverseId, UniverseSpecification> = {
   abbu: {
@@ -114,41 +115,7 @@ export const UNIVERSES_DATA: Record<UniverseId, UniverseSpecification> = {
     miniGameType: "abbu",
     miniGameTitle: "The Hero's Shield — నాన్న రక్షణ ఛత్రం",
     miniGameInstructions: "అబ్బు రక్షణ ఛత్రాన్ని కదిలించి జీవితంలోని కష్టాల వర్షాన్ని బంగారు మల్లెపూలుగా మార్చండి!",
-    quiz: [
-      {
-        id: "abbu-1",
-        question: "అబ్బుని చూసినప్పుడు అర్షియాకి అత్యంత ఆనందాన్ని ఇచ్చే క్షణం ఏది?",
-        teluguQuestion: "అబ్బుని చూసినప్పుడు అర్షియాకి అత్యంత ఆనందాన్ని ఇచ్చే క్షణం ఏది?",
-        options: [
-          { text: "అబ్బు కళ్ళలో ప్రశాంతమైన గర్వం మరియు చిరునవ్వు కనిపించినప్పుడు", isCorrect: true, reaction: "అవును నాన్న. మీ కళ్ళలో కనిపించే గర్వమే నా జీవితానికి అతిపెద్ద వరం!" },
-          { text: "సమీర్ ని తిట్టినప్పుడు", isCorrect: false, reaction: "హాహా, అది సరదానే కానీ మీ సంతోషమే ముఖ్యం!" },
-          { text: "టీ తాగే సమయంలో", isCorrect: false, reaction: "టీ బావుంటుంది కానీ మీ గర్వమే నాకు ముఖ్యం." },
-        ],
-        explanation: "అబ్బు కళ్ళలో శాంతి, సంతృప్తి మరియు గర్వం చూడటమే అర్షియాకు సర్వస్వం.",
-      },
-      {
-        id: "abbu-2",
-        question: "అర్షియా రోజూ జరిగే విషయాలను ఎవరితో పంచుకోవడానికి అమితంగా ఇష్టపడుతుంది?",
-        teluguQuestion: "అర్షియా రోజూ జరిగే విషయాలను ఎవరితో పంచుకోవడానికి అమితంగా ఇష్టపడుతుంది?",
-        options: [
-          { text: "తన మొదటి హీరో అయిన అబ్బుతో", isCorrect: true, reaction: "ఎల్లప్పుడూ మీతోనే నాన్న! మీతో పంచుకుంటేనే నా మనసు తేలికవుతుంది." },
-          { text: "ఇంటర్నెట్ స్నేహితులతో", isCorrect: false, reaction: "కుటుంబమే ముఖ్యం, ముఖ్యంగా అబ్బు!" },
-          { text: "ఎవరితోనూ చెప్పదు", isCorrect: false, reaction: "అబ్బుతో ప్రతి చిన్న విషయం చెప్తుంది." },
-        ],
-        explanation: "తన తండ్రితో ప్రతి చిన్న అనుభవాన్ని పంచుకోవడం అర్షియాకు ఎంతో ఇష్టం.",
-      },
-      {
-        id: "abbu-3",
-        question: "తన జీవితం మరియు వివాహం గురించి అర్షియా అబ్బుకి ఇచ్చిన పవిత్రమైన మాట ఏమిటి?",
-        teluguQuestion: "తన జీవితం మరియు వివాహం గురించి అర్షియా అబ్బుకి ఇచ్చిన పవిత్రమైన మాట ఏమిటి?",
-        options: [
-          { text: "తన ఎంపిక అబ్బు గౌరవాన్ని నిలబెట్టేలా, ఆయన ఆశీర్వాదాలతోనే సాగుతుందని", isCorrect: true, reaction: "ఇది నా గుండెల్లో రాసిపెట్టుకున్న మాట నాన్న. మీ తల ఎప్పుడూ దించను." },
-          { text: "వివాహం చేసుకోనని", isCorrect: false, reaction: "సరైన మార్గంలో మీ ఆశీస్సులతోనే అన్నీ జరుగుతాయి." },
-          { text: "ఏదీ ఆలోచించలేదని", isCorrect: false, reaction: "స్పష్టమైన, బాధ్యతాయుతమైన ఆలోచన ఉంది." },
-        ],
-        explanation: "తండ్రి గౌరవాన్ని, ఆశీర్వాదాన్ని అత్యున్నతంగా కాపాడుకోవడమే అర్షియా జీవిత లక్ష్యం.",
-      },
-    ],
+    quiz: UNIVERSES_QUIZ_DATA.abbu,
     aiVideo: {
       title: "Hero of Dawn: A Father's Legacy",
       description: "An emotional cinematic journey of a father holding his young daughter's hand under golden sunrise skies, blossoming into a lifetime of guidance and quiet strength.",
@@ -274,38 +241,7 @@ export const UNIVERSES_DATA: Record<UniverseId, UniverseSpecification> = {
     miniGameType: "afrid",
     miniGameTitle: "Constellation of Seven & Sunkesla Trails",
     miniGameInstructions: "Connect the 7 glowing milestones — Rollapadu, Darga, City Forest, Belum Caves, and Sunkesla Road — to unlock our eternal love constellation!",
-    quiz: [
-      {
-        id: "afrid-1",
-        question: "Which iconic long drive holds our most cherished memories ('IYKYK')?",
-        options: [
-          { text: "Sunkesla Road (IYKYK!)", isCorrect: true, reaction: "You know it, Offu ga! Sunkesla Road is our sacred haven of peace." },
-          { text: "Boring highway toll gate", isCorrect: false, reaction: "No way, only Sunkesla Road holds the magic!" },
-          { text: "Shopping mall parking lot", isCorrect: false, reaction: "Haha, not romantic at all!" },
-        ],
-        explanation: "Sunkesla Road long drives are their signature intimate memory.",
-      },
-      {
-        id: "afrid-2",
-        question: "Which set of unforgettable places marks our seven-year journey?",
-        options: [
-          { text: "Rollapadu, Darga, City Forest, Belum Caves & Sunkesla Road", isCorrect: true, reaction: "Every single landmark etched into our hearts forever!" },
-          { text: "Airport waiting lounges", isCorrect: false, reaction: "Those were just transit, our real spots are legendary!" },
-          { text: "Exam halls", isCorrect: false, reaction: "Exam halls caused stress, our spots brought peace!" },
-        ],
-        explanation: "Their shared trips to Rollapadu, Darga, City Forest, Belum Caves, and Sunkesla Road.",
-      },
-      {
-        id: "afrid-3",
-        question: "What is Arshiya's playful pet name for Afrid?",
-        options: [
-          { text: "Offu ga", isCorrect: true, reaction: "Offu ga! The cutest teasing name reserved only for you." },
-          { text: "Professor", isCorrect: false, reaction: "Too formal!" },
-          { text: "Stranger", isCorrect: false, reaction: "You are her entire universe!" },
-        ],
-        explanation: "Her signature affectionate nickname 'Offu ga'.",
-      },
-    ],
+    quiz: UNIVERSES_QUIZ_DATA.afrid,
     aiVideo: {
       title: "Constellation 7: Our Eternal Drive",
       description: "A breathtaking twilight drive along Sunkesla Road overlooking sparkling horizon lights, hands intertwined over the console, starlight illuminating a quiet look of devotion.",
@@ -419,38 +355,7 @@ export const UNIVERSES_DATA: Record<UniverseId, UniverseSpecification> = {
     miniGameType: "sameer",
     miniGameTitle: "The Great Water Bottle & Sibling Banter Heist",
     miniGameInstructions: "Help Sameer snatch 6 cold water bottles from the fridge while dodging flying slippers and yelling 'Kottinan anukoo tirgutav barre!'",
-    quiz: [
-      {
-        id: "sameer-1",
-        question: "What is Sameer's legendary threat line whenever Arshiya complains?",
-        options: [
-          { text: "Kottinan anukoo tirgutav barre!", isCorrect: true, reaction: "BINGO! Delivered with 100% dramatic sibling power!" },
-          { text: "I will write an apology letter", isCorrect: false, reaction: "Apology? From Sameer? Never in this universe!" },
-          { text: "Let's peacefully discuss our feelings", isCorrect: false, reaction: "Haha, not his style at all!" },
-        ],
-        explanation: "His trademark dialogue 'Kottinan anukoo tirgutav barre!'.",
-      },
-      {
-        id: "sameer-2",
-        question: "Which infamous memory caused Arshiya to actually cry in the house?",
-        options: [
-          { text: "The cold water bottle incident from the fridge", isCorrect: true, reaction: "Yes! The legendary cold water tragedy that made Arshiya tear up!" },
-          { text: "Losing a game of ludo", isCorrect: false, reaction: "Ludo is nothing compared to cold water theft!" },
-          { text: "Spilling tea", isCorrect: false, reaction: "The water bottle heist was top tier sibling drama!" },
-        ],
-        explanation: "The iconic cold water bottle battle where Arshiya cried.",
-      },
-      {
-        id: "sameer-3",
-        question: "What is Arshiya's heartfelt prayer regarding Sameer's personality?",
-        options: [
-          { text: "That her future child will have Sameer's joyful, loving vibes, inshaAllah", isCorrect: true, reaction: "InshaAllah! A true compliment beneath all the teasing!" },
-          { text: "That he stops eating food", isCorrect: false, reaction: "He needs his food!" },
-          { text: "That he moves to Antarctica", isCorrect: false, reaction: "Our house would be way too boring without him!" },
-        ],
-        explanation: "She deeply cherishes his energy and hopes her future child inherits his vibrant spirit.",
-      },
-    ],
+    quiz: UNIVERSES_QUIZ_DATA.sameer,
     aiVideo: {
       title: "The Pinch Protocol: Sameer's Heist",
       description: "A hilarious Pixar-style animated sequence of Sameer tiptoeing to the fridge late at night, snatching the cold water bottle, and yelling 'Actually... HR!' when Arshiya catches him.",
@@ -552,38 +457,7 @@ export const UNIVERSES_DATA: Record<UniverseId, UniverseSpecification> = {
     miniGameType: "jhansi",
     miniGameTitle: "Street Food Scramble & Dump-Fellow Trek",
     miniGameInstructions: "Catch 6 fast food treats across random parks and campus corners to conquer B.Tech final year stress!",
-    quiz: [
-      {
-        id: "jhansi-1",
-        question: "What was our ultimate signature activity during final year B.Tech?",
-        options: [
-          { text: "Exploring random parks, random places, and dump-fellow adventures with fast food", isCorrect: true, reaction: "YES! Engineering was just an excuse for our epic food quests!" },
-          { text: "Sitting quietly in the front bench of every lecture", isCorrect: false, reaction: "We would have fallen asleep in 2 minutes!" },
-          { text: "Drinking bitter green tea", isCorrect: false, reaction: "Fast food and chaat only!" },
-        ],
-        explanation: "Their spontaneous park visits, dump-fellow adventures, and street food runs.",
-      },
-      {
-        id: "jhansi-2",
-        question: "What is Jhansi's standout personality superpower?",
-        options: [
-          { text: "Her stubborn, strong personality and hilariously expressive faces", isCorrect: true, reaction: "One look from Jhansi and the whole classroom understands everything!" },
-          { text: "Being extremely shy and quiet", isCorrect: false, reaction: "Shy? Jhansi? Never!" },
-          { text: "Following strict timetables", isCorrect: false, reaction: "Spontaneity is her middle name." },
-        ],
-        explanation: "Her bold stubbornness, strength of character, and expressive reactions.",
-      },
-      {
-        id: "jhansi-3",
-        question: "Why does Arshiya value Jhansi's friendship so deeply?",
-        options: [
-          { text: "Because she is fiercely loyal, stands tall, and makes every day an adventure", isCorrect: true, reaction: "A true sister through every high and low of college and beyond." },
-          { text: "Because she writes good lab records", isCorrect: false, reaction: "Lab records are forgotten, sisterhood is forever!" },
-          { text: "Because she drives a sports bike", isCorrect: false, reaction: "Her heart and humor are what count!" },
-        ],
-        explanation: "Her genuine loyalty, unshakeable courage, and shared memories.",
-      },
-    ],
+    quiz: UNIVERSES_QUIZ_DATA.jhansi,
     aiVideo: {
       title: "Wanderlust Queens: The B.Tech Journey",
       description: "Two best friends laughing in golden afternoon sun, sitting in a scenic park sharing fast food, wind blowing through their hair, looking back at college memories.",
@@ -690,38 +564,7 @@ export const UNIVERSES_DATA: Record<UniverseId, UniverseSpecification> = {
     miniGameType: "awez",
     miniGameTitle: "Family Errand Sprint & Aunty-Joke Decoder",
     miniGameInstructions: "Collect the family dinner ingredients while unlocking our favorite jokes: 'Shadaaoonn', 'Banagram', and 'Arshad bhaii'!",
-    quiz: [
-      {
-        id: "awez-1",
-        question: "Which iconic collection of nicknames belongs uniquely to Awez?",
-        options: [
-          { text: "Arshad bhaii, Shadaaoonn, Kaalu Kutte, Awez Mallu, and Banagram", isCorrect: true, reaction: "Every single one of them! You are our multi-titled legend!" },
-          { text: "Captain America", isCorrect: false, reaction: "Cool, but Banagram is way more iconic!" },
-          { text: "Secret Agent 007", isCorrect: false, reaction: "Shadaaoonn wins every time!" },
-        ],
-        explanation: "Their shared family nicknames: Arshad bhaii, Shadaaoonn, Kaalu Kutte, Awez Mallu, and Banagram.",
-      },
-      {
-        id: "awez-2",
-        question: "What is the famous shared family joke memory we always laugh about?",
-        options: [
-          { text: "The legendary aunty-joke memory that had us in stitches", isCorrect: true, reaction: "Unforgettable! We laughed until our stomachs hurt!" },
-          { text: "A boring news lecture", isCorrect: false, reaction: "Never boring around us!" },
-          { text: "Traffic signals", isCorrect: false, reaction: "Pure family humor only!" },
-        ],
-        explanation: "The hilarious aunty-joke family memory.",
-      },
-      {
-        id: "awez-3",
-        question: "What is Arshiya's lifetime promise to her brother Awez?",
-        options: [
-          { text: "To always stand right behind him with unconditional love and support, regardless of any disagreements", isCorrect: true, reaction: "Always and forever, Awez. I will always have your back." },
-          { text: "To make him wash all dishes", isCorrect: false, reaction: "Haha, only on holidays!" },
-          { text: "To ignore his calls", isCorrect: false, reaction: "Always here for my brother!" },
-        ],
-        explanation: "Her unconditional sisterly commitment to stand behind him through every season.",
-      },
-    ],
+    quiz: UNIVERSES_QUIZ_DATA.awez,
     aiVideo: {
       title: "Roots of Honor: A Younger Brother's Path",
       description: "A warm documentary cinematic tone showing a young man surrounded by family warmth, greeting elders with a bow and sharing laughter under festive lights.",
@@ -828,38 +671,7 @@ export const UNIVERSES_DATA: Record<UniverseId, UniverseSpecification> = {
     miniGameType: "manohar",
     miniGameTitle: "The AMBAAA Soundboard & Chicken Curry Challenge",
     miniGameInstructions: "Trigger Manohar's iconic voice lines: 'AMBAAA!', 'Barreshiya!', and 'Nduk phn chesnave phn pettey office lo unna!' to achieve 100% comedy power!",
-    quiz: [
-      {
-        id: "manohar-1",
-        question: "What is Manohar's instant hilarious response whenever Arshiya calls him?",
-        options: [
-          { text: "Nduk phn chesnave phn pettey office lo unna!", isCorrect: true, reaction: "EVERY SINGLE TIME! The dramatic office rush is legendary!" },
-          { text: "Good afternoon, how may I assist you?", isCorrect: false, reaction: "Never in a million years would Manohar say this!" },
-          { text: "Total silence", isCorrect: false, reaction: "Silence is scientifically impossible for Manohar!" },
-        ],
-        explanation: "His trademark dialogue 'Nduk phn chesnave phn pettey office lo unna!'.",
-      },
-      {
-        id: "manohar-2",
-        question: "What outrageous thing did Manohar do to Arshiya's homemade chicken curry?",
-        options: [
-          { text: "Put his whole hand directly into the curry bowl", isCorrect: true, reaction: "YES! Zero patience, zero spoons, pure direct curry attack!" },
-          { text: "Refused to eat it", isCorrect: false, reaction: "He devoured it in seconds!" },
-          { text: "Fed it to a cat", isCorrect: false, reaction: "He kept every bite for himself!" },
-        ],
-        explanation: "The hilarious story of him putting his hand into Arshiya's chicken curry.",
-      },
-      {
-        id: "manohar-3",
-        question: "Which trio of hilarious nicknames and roasts connects Arshiya and Manohar?",
-        options: [
-          { text: "Barreshiya, AMBAAA (cow joke), and Bot", isCorrect: true, reaction: "The holy trinity of our comedic friendship!" },
-          { text: "Sir and Madam", isCorrect: false, reaction: "Way too formal!" },
-          { text: "Colleagues", isCorrect: false, reaction: "Friends for life!" },
-        ],
-        explanation: "Their shared banter: Barreshiya, AMBAAA, cow jokes, and Bot.",
-      },
-    ],
+    quiz: UNIVERSES_QUIZ_DATA.manohar,
     aiVideo: {
       title: "The AMBAAA Show: Live from the Cosmos",
       description: "An explosive, colorful Tollywood mass-cinema parody entry featuring confetti, neon lights, dramatic slow-motion walks, and bold animated titles.",
@@ -956,38 +768,7 @@ export const UNIVERSES_DATA: Record<UniverseId, UniverseSpecification> = {
     miniGameType: "mubeena",
     miniGameTitle: "Pudeena's Motor Beat & Dance Step Sync",
     miniGameInstructions: "Hit the glowing dance arrows to dance along to the motor beats and Bollywood rhythms!",
-    quiz: [
-      {
-        id: "mubeena-1",
-        question: "What unbelievable sound can Mubeena Didi effortlessly dance to?",
-        options: [
-          { text: "Literally anything, including the humming sound of a water motor!", isCorrect: true, reaction: "YES! If it vibrates, she has a choreography ready for it!" },
-          { text: "Only classical violin concertos", isCorrect: false, reaction: "Motor beats beat classical violin any day!" },
-          { text: "Total pin-drop silence", isCorrect: false, reaction: "Even in silence she invents a rhythm!" },
-        ],
-        explanation: "Her incredible ability to dance to anything, even motor sounds.",
-      },
-      {
-        id: "mubeena-2",
-        question: "Which set of affectionate names connects Arshiya and Mubeena?",
-        options: [
-          { text: "Vadina, Pudeena, and Mubeena Didi", isCorrect: true, reaction: "Pure love and sisterhood in every single name!" },
-          { text: "Strict Boss and Employee", isCorrect: false, reaction: "Never! Pure sister bond!" },
-          { text: "Strangers", isCorrect: false, reaction: "Soul sisters forever!" },
-        ],
-        explanation: "Their fond nicknames: Vadina, Pudeena, and Mubeena Didi.",
-      },
-      {
-        id: "mubeena-3",
-        question: "What makes Mubeena's presence so special in Arshiya's heart?",
-        options: [
-          { text: "Her hilarious answers, non-stop laughter, and treating Arshiya like her own sister", isCorrect: true, reaction: "Truly, you brought endless sunshine into our home." },
-          { text: "Her cooking timers", isCorrect: false, reaction: "Her dance and heart are unmatched!" },
-          { text: "Her shoe collection", isCorrect: false, reaction: "Her pure warmth is what matters most." },
-        ],
-        explanation: "Her infectious humor, dance passion, and genuine sisterly affection.",
-      },
-    ],
+    quiz: UNIVERSES_QUIZ_DATA.mubeena,
     aiVideo: {
       title: "Ghungroo Starlight: The Vadina Celebration",
       description: "A glamorous festive celebration music video sequence, flower petals raining down as two graceful women execute a synchronized Bollywood dance twirl in rich festive attire.",
@@ -1094,38 +875,7 @@ export const UNIVERSES_DATA: Record<UniverseId, UniverseSpecification> = {
     miniGameType: "qurayba",
     miniGameTitle: "The Nakhre Spoil-O-Meter & Hand Doodle Game",
     miniGameInstructions: "Watch videos together, draw colorful doodles on Arshiya's hand, and unlock big warm hugs for Little Queen Qurayba!",
-    quiz: [
-      {
-        id: "qurayba-1",
-        question: "What is Qurayba's favorite creative activity whenever she sits with Arshiya?",
-        options: [
-          { text: "Drawing colorful doodles and designs on Arshiya's hands with pens", isCorrect: true, reaction: "Yes! Arshiya's hands are Qurayba's favorite canvas in the world!" },
-          { text: "Writing official business emails", isCorrect: false, reaction: "She is 5-6 years old, coloring is way more fun!" },
-          { text: "Reading a dictionary", isCorrect: false, reaction: "Doodles and giggles only!" },
-        ],
-        explanation: "Drawing on Arshiya's hands with pens and colors.",
-      },
-      {
-        id: "qurayba-2",
-        question: "Which adorable nicknames does Arshiya love calling Qurayba?",
-        options: [
-          { text: "Chulbuli, Pilla Pichuka, Ashi Shaitaan, and My First Little Jaan", isCorrect: true, reaction: "Every single one of them was made with infinite love for her!" },
-          { text: "Grandmother", isCorrect: false, reaction: "She is our cute little princess!" },
-          { text: "Stranger", isCorrect: false, reaction: "She is our first Jaan!" },
-        ],
-        explanation: "Her fond nicknames: Chulbuli, Pilla Pichuka, Ashi Shaitaan, and First Little Jaan.",
-      },
-      {
-        id: "qurayba-3",
-        question: "What happens the moment Arshiya visits and walks through the door?",
-        options: [
-          { text: "Qurayba runs across the room to give her the biggest, tightest loving hug", isCorrect: true, reaction: "The best feeling in the entire world!" },
-          { text: "She hides behind a curtain forever", isCorrect: false, reaction: "She runs straight for hugs!" },
-          { text: "She ignores her", isCorrect: false, reaction: "Instant excitement and laughter!" },
-        ],
-        explanation: "Her joyful running hugs whenever Arshiya visits.",
-      },
-    ],
+    quiz: UNIVERSES_QUIZ_DATA.qurayba,
     aiVideo: {
       title: "Little Queen's Enchanted Forest",
       description: "A whimsical Pixar fairytale render of a cute 5-year-old girl in a pink princess gown drawing doodles with glowing markers and running into her aunt's loving embrace.",
@@ -1227,38 +977,7 @@ export const UNIVERSES_DATA: Record<UniverseId, UniverseSpecification> = {
     miniGameType: "wafeeqa",
     miniGameTitle: "Wafeeqa's Butterfly Hug Meadow",
     miniGameInstructions: "Catch 5 fluttering pastel butterflies and cuddly hugs to light up Wafeeqa's blossom flower crown!",
-    quiz: [
-      {
-        id: "wafeeqa-1",
-        question: "What is Wafeeqa's special place in Arshiya's heart?",
-        options: [
-          { text: "My Another Little Jaan who brought pure sweetness into our world", isCorrect: true, reaction: "Always and forever, our sweet angel!" },
-          { text: "A neighbor", isCorrect: false, reaction: "She is our beloved family!" },
-          { text: "A stranger", isCorrect: false, reaction: "She is our precious Jaan!" },
-        ],
-        explanation: "Her title as Arshiya's beloved 'Another Little Jaan'.",
-      },
-      {
-        id: "wafeeqa-2",
-        question: "What is completely irresistible about baby Wafeeqa?",
-        options: [
-          { text: "Her chubby cheeks, sweet innocent giggles, and loving cuddly hugs", isCorrect: true, reaction: "Those cheeks and giggles could melt any heart instantly!" },
-          { text: "Her ability to do taxes", isCorrect: false, reaction: "Haha, she is an innocent child!" },
-          { text: "Her typing speed", isCorrect: false, reaction: "Cuddles only!" },
-        ],
-        explanation: "Her adorable chubby cheeks and joyful baby giggles.",
-      },
-      {
-        id: "wafeeqa-3",
-        question: "What does Arshiya wish for Wafeeqa as she grows up?",
-        options: [
-          { text: "A life filled with vibrant health, pure joy, peace, and loving protection", isCorrect: true, reaction: "Aameen! May her life always be beautiful and blessed." },
-          { text: "That she eats only broccoli", isCorrect: false, reaction: "She gets all the sweet treats!" },
-          { text: "That she never laughs", isCorrect: false, reaction: "Her laughter is our sunshine!" },
-        ],
-        explanation: "Loving prayers for her health, happiness, and bright future.",
-      },
-    ],
+    quiz: UNIVERSES_QUIZ_DATA.wafeeqa,
     aiVideo: {
       title: "Baby Starlight: The Angel's Lullaby",
       description: "A dreamy animated sequence of baby hands gripping an aunt's finger, gentle floating pastel bubbles, and soft golden nursery warmth.",
@@ -1360,38 +1079,7 @@ export const UNIVERSES_DATA: Record<UniverseId, UniverseSpecification> = {
     miniGameType: "shahid",
     miniGameTitle: "The 'Aan Beta' Soundboard & Nickname Challenge",
     miniGameInstructions: "Listen to Shahid Pappa's 4 iconic modes of 'Aan Beta...' and complete the funny nickname challenge to unlock the Certified Adopted Daughter Trophy!",
-    quiz: [
-      {
-        id: "shahid-1",
-        question: "What is Shahid Pappa's iconic signature greeting in that booming bass voice?",
-        options: [
-          { text: "'Pappa says: Aan Beta...' / 'Haa Beta...'", isCorrect: true, reaction: "Delivered in that deep, unmistakable radio voice!" },
-          { text: "A formal 10-page memo", isCorrect: false, reaction: "Audio voice note with deep bass wins every time!" },
-          { text: "Total silence", isCorrect: false, reaction: "Silence is not in his dictionary!" },
-        ],
-        explanation: "His legendary greeting 'Aan Beta... / Haa Beta...' in his booming voice.",
-      },
-      {
-        id: "shahid-2",
-        question: "What atmosphere best describes Shahid Pappa's presence according to Arshiya?",
-        options: [
-          { text: "A comforting, teddy-like affectionate warmth mixed with protective guidance", isCorrect: true, reaction: "Pure fatherly warmth, big heart, and reliable advice!" },
-          { text: "Strict military boot-camp", isCorrect: false, reaction: "Haha, he is all warmth and humor!" },
-          { text: "Cold indifference", isCorrect: false, reaction: "He treats Arshiya with total paternal love." },
-        ],
-        explanation: "His teddy-bear warmth, deep voice, and protective mentorship.",
-      },
-      {
-        id: "shahid-3",
-        question: "What does Arshiya cherish most about her bond with Shahid Pappa?",
-        options: [
-          { text: "Having a genuine father-figure who provides wisdom, teasing nicknames, and unwavering belief", isCorrect: true, reaction: "A rare and deeply respected bond in her life." },
-          { text: "Free coffee vouchers", isCorrect: false, reaction: "Mentorship is priceless!" },
-          { text: "Microphone tips", isCorrect: false, reaction: "His wisdom is what counts." },
-        ],
-        explanation: "His paternal role, life advice, and affectionate guidance.",
-      },
-    ],
+    quiz: UNIVERSES_QUIZ_DATA.shahid,
     aiVideo: {
       title: "The Radio of Wisdom: A Fatherly Mentor",
       description: "A warm vintage cinema scene in a classic booth, an experienced mentor talking animatedly with hand gestures, while the younger girl laughs and listens with deep respect.",
@@ -1493,38 +1181,7 @@ export const UNIVERSES_DATA: Record<UniverseId, UniverseSpecification> = {
     miniGameType: "muskan",
     miniGameTitle: "The Cute Chaos Snack & Face Match Challenge",
     miniGameInstructions: "Catch the delicious snacks and match the twin expressions to activate 100% Dubbi & Hippo happiness!",
-    quiz: [
-      {
-        id: "muskan-1",
-        question: "What spooky superpower do Muskan and Arshiya share?",
-        options: [
-          { text: "Identical facial expressions and telepathic laughing across the room", isCorrect: true, reaction: "YES! One raised eyebrow and both of us are dying of laughter!" },
-          { text: "Mind reading stock market charts", isCorrect: false, reaction: "Haha, laughter only!" },
-          { text: "Speaking backward", isCorrect: false, reaction: "Our facial expressions speak louder than words!" },
-        ],
-        explanation: "Their identical expressions and unspoken telepathic humor.",
-      },
-      {
-        id: "muskan-2",
-        question: "What are our affectionate, body-positive inside nicknames?",
-        options: [
-          { text: "Dubbi and Hippo (pure love and humor!)", isCorrect: true, reaction: "Dubbi & Hippo forever! Cuteness overload!" },
-          { text: "Robot 1 and Robot 2", isCorrect: false, reaction: "Too mechanical!" },
-          { text: "Serious Scholars", isCorrect: false, reaction: "We are the Queens of Cute Chaos!" },
-        ],
-        explanation: "Their fond, affectionate nicknames 'Dubbi and Hippo'.",
-      },
-      {
-        id: "muskan-3",
-        question: "Why is Muskan such an essential person in Arshiya's life?",
-        options: [
-          { text: "Because she is the mirror soul who brings zero judgment, shared food cravings, and pure laughter", isCorrect: true, reaction: "You make every difficult day light and joyful, Muski!" },
-          { text: "Because she wakes up early", isCorrect: false, reaction: "We both love sleeping in!" },
-          { text: "Because she eats salad only", isCorrect: false, reaction: "Waffles and boba forever!" },
-        ],
-        explanation: "Her lightness of spirit, mutual humor, and judgment-free companionship.",
-      },
-    ],
+    quiz: UNIVERSES_QUIZ_DATA.muskan,
     aiVideo: {
       title: "Pastel Chaos: Two Souls in Harmony",
       description: "A trendy Gen-Z aesthetic montage of two best friends in a pastel dessert cafe, clinking drinks, taking photobooth photos, and laughing in soft golden light.",
@@ -1626,38 +1283,7 @@ export const UNIVERSES_DATA: Record<UniverseId, UniverseSpecification> = {
     miniGameType: "sana",
     miniGameTitle: "The Boundary Line & Zen Reflection Pond",
     miniGameInstructions: "Tap the serene lunar water surface to establish the 4 Golden Boundaries of Wisdom: 'Draw a Line', 'Quiet Dignity', 'Thoughtful Counsel', and 'Sisterhood'!",
-    quiz: [
-      {
-        id: "sana-1",
-        question: "What is Sana's golden boundary advice that Arshiya cherishes most?",
-        options: [
-          { text: "'Draw a line if you don't like it' — Protecting your peace with clarity", isCorrect: true, reaction: "Words of pure wisdom that remain etched into Arshiya's heart!" },
-          { text: "Always agree with everyone even if you dislike it", isCorrect: false, reaction: "Sana teaches self-respect, never surrender!" },
-          { text: "Run away from difficult situations", isCorrect: false, reaction: "Face things with poise and dignity!" },
-        ],
-        explanation: "Her unforgettable advice 'Draw a line if you don't like it'.",
-      },
-      {
-        id: "sana-2",
-        question: "What does Arshiya instinctively do when something feels unusual or when facing a tough decision?",
-        options: [
-          { text: "Turns to Sana for her thoughtful, grounded answers and wisdom", isCorrect: true, reaction: "Sana's clarity clears all mental fog instantly!" },
-          { text: "Flips a coin in the dark", isCorrect: false, reaction: "Sana's guidance beats any coin flip!" },
-          { text: "Asks a random internet stranger", isCorrect: false, reaction: "Sana's trusted sisterhood is supreme!" },
-        ],
-        explanation: "Seeking Sana's opinions and grounded counsel whenever something feels unusual.",
-      },
-      {
-        id: "sana-3",
-        question: "What makes Sana's personality so deeply respected by Arshiya?",
-        options: [
-          { text: "Her calm strength, graceful poise, and mature sisterly protection", isCorrect: true, reaction: "A sister who radiates quiet power and pure elegance." },
-          { text: "Her collection of sunglasses", isCorrect: false, reaction: "Her character is what truly shines!" },
-          { text: "Her alarm clock", isCorrect: false, reaction: "Her heart and wisdom are timeless!" },
-        ],
-        explanation: "Her poise, emotional intelligence, and sisterly wisdom.",
-      },
-    ],
+    quiz: UNIVERSES_QUIZ_DATA.sana,
     aiVideo: {
       title: "Quiet Starlight: The Sanctuary of Wisdom",
       description: "A high-fashion editorial cinematic film showing two poised women walking along an architectural terrace overlooking a misty lake at dawn, breeze rustling silk.",

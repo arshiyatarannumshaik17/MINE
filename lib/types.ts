@@ -59,8 +59,20 @@ export interface StoryAct {
   interactivePrompt?: string;
 }
 
+export type QuizQuestionType =
+  | "multiple_choice"
+  | "true_false"
+  | "fill_blank"
+  | "memory_challenge"
+  | "funny_habit"
+  | "core_values"
+  | "emotional"
+  | "nickname"
+  | "personality";
+
 export interface QuizQuestion {
   id: string;
+  type?: QuizQuestionType;
   question: string;
   teluguQuestion?: string;
   options: {

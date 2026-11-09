@@ -16,6 +16,7 @@ export const QuizRepository = {
     return questions.map((q) => ({
       id: q.id,
       orderIndex: q.orderIndex,
+      type: q.type || "multiple_choice",
       question: q.questionText,
       teluguQuestion: q.teluguText,
       options: q.options.map((opt) => ({
@@ -72,10 +73,34 @@ export const QuizRepository = {
       s.quizAttempts.push(attempt);
     });
 
+    const total = canonicalQuestions.length || 1;
+    const percentage = Math.round((score / total) * 100);
+    const isHighScore = percentage >= 80;
+
+    // Personalized result message per tier
+    let resultTitle = "Celestial Bond Verified!";
+    let resultMessage = "Your connection with Arshiya is deep and timeless.";
+    if (percentage === 100) {
+      resultTitle = "Legendary 100% Celestial Match! 🌟";
+      resultMessage = "Incredible! You know Arshiya through and through! Not a single memory or inside joke was missed.";
+    } else if (percentage >= 80) {
+      resultTitle = "Deep Soul Connection! ✨";
+      resultMessage = "Remarkable! You understand Arshiya's heart, humor, and values on a truly profound level.";
+    } else if (percentage >= 50) {
+      resultTitle = "Heartwarming Bond! 💖";
+      resultMessage = "Great job! You know the real Arshiya and share so many unforgettable cherished moments.";
+    } else {
+      resultTitle = "Growing Celestial Bond! 🌱";
+      resultMessage = "You know her warm heart, and our journey together is full of new memories waiting to be made.";
+    }
+
     return {
       score,
       totalQuestions: canonicalQuestions.length,
-      percentage: Math.round((score / canonicalQuestions.length) * 100),
+      percentage,
+      isHighScore,
+      resultTitle,
+      resultMessage,
       feedback: feedbackList,
       attemptId: attempt.id,
     };
