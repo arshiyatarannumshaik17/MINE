@@ -39,3 +39,4 @@ export async function isCurrentUserAdmin(): Promise<boolean> {
   if (!token) return false;
   return verifyAdminSessionToken(token);
 }
+

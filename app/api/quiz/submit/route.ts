@@ -21,3 +21,4 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: false, error: "Failed to grade quiz" }, { status: 500 });
   }
 }
+

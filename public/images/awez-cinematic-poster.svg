@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <defs>
+    <radialGradient id="bg-awez" cx="50%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="#059669" stop-opacity="0.45" />
+      <stop offset="60%" stop-color="#05070f" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#020306" stop-opacity="1" />
+    </radialGradient>
+    <linearGradient id="gold-awez" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d97706" />
+      <stop offset="100%" stop-color="#ffffff" />
+    </linearGradient>
+    <filter id="glow-awez" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="25" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="720" fill="url(#bg-awez)" />
+
+  <!-- Stars -->
+  <g opacity="0.6">
+    <circle cx="150" cy="120" r="2" fill="#fff" opacity="0.8" />
+    <circle cx="340" cy="240" r="1.5" fill="#fff" opacity="0.5" />
+    <circle cx="890" cy="180" r="2.5" fill="#fff" opacity="0.7" />
+    <circle cx="1100" cy="320" r="1.5" fill="#fff" opacity="0.4" />
+    <circle cx="210" cy="540" r="2" fill="#fff" opacity="0.6" />
+    <circle cx="980" cy="580" r="1.5" fill="#fff" opacity="0.5" />
+    <circle cx="640" cy="110" r="3" fill="#d97706" opacity="0.9" />
+  </g>
+
+  <!-- Cinema Border Frame -->
+  <rect x="40" y="40" width="1200" height="640" rx="24" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="2" />
+  <rect x="50" y="50" width="1180" height="620" rx="16" fill="none" stroke="#d97706" stroke-opacity="0.25" stroke-width="1" />
+
+  <!-- Central Emblem Glow -->
+  <circle cx="640" cy="280" r="90" fill="#d97706" opacity="0.18" filter="url(#glow-awez)" />
+  <circle cx="640" cy="280" r="65" fill="#0b0e1b" stroke="#d97706" stroke-width="3" />
+  <text x="640" y="295" font-size="48" text-anchor="middle" dominant-baseline="middle">🛡️</text>
+
+  <!-- Badge -->
+  <rect x="500" y="380" width="280" height="32" rx="16" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.15)" />
+  <text x="640" y="401" font-family="'Cinzel', serif" font-size="12" fill="#d97706" font-weight="700" letter-spacing="3" text-anchor="middle">AN ARSHIYA ORIGINAL FILM</text>
+
+  <!-- Titles -->
+  <text x="640" y="465" font-family="'Cinzel', serif" font-size="44" fill="#ffffff" font-weight="900" letter-spacing="4" text-anchor="middle">ARSHAD BHAI'S LITTLE BROTHER</text>
+  <text x="640" y="505" font-family="'Plus Jakarta Sans', sans-serif" font-size="16" fill="#cbd5e1" font-weight="400" letter-spacing="1" text-anchor="middle">Loyalty, Respect & The Warmth of Family</text>
+
+  <!-- Quote -->
+  <text x="640" y="565" font-family="'Playfair Display', serif" font-style="italic" font-size="20" fill="#d97706" opacity="0.95" text-anchor="middle">&ldquo;True brothers aren't just by blood; they are chosen by love.&rdquo;</text>
+
+  <!-- Bottom Cinema Meta -->
+  <text x="90" y="640" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" fill="rgba(255,255,255,0.4)" letter-spacing="2">4K CINEMATIC ANAMORPHIC</text>
+  <text x="1190" y="640" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" fill="rgba(255,255,255,0.4)" letter-spacing="2" text-anchor="end">12 LITTLE UNIVERSES</text>
+</svg>

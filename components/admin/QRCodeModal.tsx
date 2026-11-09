@@ -109,3 +109,4 @@ export default function QRCodeModal({ isOpen, onClose, recipient }: QRCodeModalP
     </div>
   );
 }
+

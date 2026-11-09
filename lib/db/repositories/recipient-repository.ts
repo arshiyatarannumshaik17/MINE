@@ -16,3 +16,4 @@ export const RecipientRepository = {
     return state.experiences.find((e) => e.recipientId === id) || null;
   },
 };
+

@@ -116,3 +116,4 @@ export interface DatabaseState {
   mediaAssets: MediaAssetRecord[];
   responses: RecipientResponseRecord[];
 }
+

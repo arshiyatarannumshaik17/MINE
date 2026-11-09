@@ -45,3 +45,4 @@ export const QRCodeGenerator = {
     return `${cleanBase}/portal?key=${encodeURIComponent(token)}`;
   },
 };
+
