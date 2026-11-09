@@ -35,3 +35,4 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: false, error: "Failed to vault response" }, { status: 500 });
   }
 }
+

@@ -95,3 +95,4 @@ export default function ErrandSprintGame({ onComplete, themeColor }: MiniGamePro
     </div>
   );
 }
+

@@ -96,3 +96,4 @@ export default function SnackAttackChaosGame({ onComplete, themeColor }: MiniGam
     </div>
   );
 }
+

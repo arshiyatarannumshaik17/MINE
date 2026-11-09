@@ -13,6 +13,7 @@ import MiniGameDispatcher from "@/components/games/MiniGameDispatcher";
 import QuizContainer from "@/components/quiz/QuizContainer";
 import VideoCinematicModal from "@/components/cinematic/VideoCinematicModal";
 import ResponseVaultModal from "@/components/ui/ResponseVaultModal";
+import VoiceNotePlayer from "@/components/ui/VoiceNotePlayer";
 import { soundEngine } from "@/lib/audio/sound-engine";
 import confetti from "canvas-confetti";
 import {
@@ -209,6 +210,7 @@ export default function UniverseStage() {
             <QuizContainer
               questions={quiz}
               recipientName={universe.recipientName}
+              recipientId={universe.id}
               themeColor={theme.primary}
               onComplete={() => {
                 soundEngine.playSuccessChime();
@@ -298,9 +300,16 @@ export default function UniverseStage() {
                 </span>
               </div>
 
-              <h3 className="font-script text-2xl sm:text-3xl font-bold text-white mb-6">
+              <h3 className="font-script text-2xl sm:text-3xl font-bold text-white mb-4">
                 {privateLetter.salutation}
               </h3>
+
+              {/* Voice Note Player */}
+              <VoiceNotePlayer
+                duration={privateLetter.voiceNoteDuration || "1:35"}
+                themeColor={theme.primary}
+                recipientName={universe.recipientName}
+              />
 
               <div className="space-y-4 text-sm sm:text-base text-slate-200 leading-relaxed font-light">
                 {privateLetter.paragraphs.map((para, idx) => (
@@ -356,3 +365,4 @@ export default function UniverseStage() {
     </CinematicLetterbox>
   );
 }
+

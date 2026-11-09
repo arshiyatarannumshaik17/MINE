@@ -72,3 +72,4 @@ npm run build
 npm run start
 ```
 Verified compile: **100% static & server-side rendering pass with 0 errors**.
+

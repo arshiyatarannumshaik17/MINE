@@ -120,3 +120,4 @@ export default function DanceStepSyncGame({ onComplete, themeColor }: MiniGamePr
     </div>
   );
 }
+

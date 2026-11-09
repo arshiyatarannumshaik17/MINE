@@ -108,3 +108,4 @@ export default function StreetFoodScrambleGame({ onComplete, themeColor }: MiniG
     </div>
   );
 }
+

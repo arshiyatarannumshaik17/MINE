@@ -94,3 +94,4 @@ export default function NakhreSpoilMeterGame({ onComplete, themeColor }: MiniGam
     </div>
   );
 }
+

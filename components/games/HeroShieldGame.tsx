@@ -140,3 +140,4 @@ export default function HeroShieldGame({ onComplete, themeColor }: MiniGameProps
     </div>
   );
 }
+

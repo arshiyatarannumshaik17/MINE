@@ -4,13 +4,14 @@ import React, { useState } from "react";
 import { QuizQuestion } from "@/lib/types";
 import { soundEngine } from "@/lib/audio/sound-engine";
 import confetti from "canvas-confetti";
-import { HelpCircle, CheckCircle2, XCircle, ArrowRight, Award, Sparkles } from "lucide-react";
+import { HelpCircle, CheckCircle2, XCircle, ArrowRight, Award, Sparkles, Loader2 } from "lucide-react";
 
 interface QuizContainerProps {
   questions: QuizQuestion[];
   onComplete: (score: number) => void;
   themeColor?: string;
   recipientName: string;
+  recipientId?: string;
 }
 
 export default function QuizContainer({
@@ -18,11 +19,14 @@ export default function QuizContainer({
   onComplete,
   themeColor = "#f5a623",
   recipientName,
+  recipientId = "abbu",
 }: QuizContainerProps) {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
+  const [answers, setAnswers] = useState<number[]>([]);
   const [score, setScore] = useState(0);
+  const [isGrading, setIsGrading] = useState(false);
   const [quizFinished, setQuizFinished] = useState(false);
 
   const currentQ = questions[currentIdx];
@@ -35,27 +39,62 @@ export default function QuizContainer({
     const isCorrect = currentQ.options[idx].isCorrect;
     if (isCorrect) {
       soundEngine.playSuccessChime();
-      setScore((prev) => prev + 1);
     } else {
       soundEngine.playBuzzer();
     }
   };
 
-  const handleNextQuestion = () => {
+  const handleNextQuestion = async () => {
+    const updatedAnswers = [...answers, selectedOption ?? 0];
+    setAnswers(updatedAnswers);
+
     if (currentIdx < questions.length - 1) {
       setCurrentIdx((prev) => prev + 1);
       setSelectedOption(null);
       setIsAnswered(false);
     } else {
-      setQuizFinished(true);
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 },
-      });
-      onComplete(score);
+      // Server-Side Grading & Attempt Recording
+      setIsGrading(true);
+      try {
+        const res = await fetch("/api/quiz/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            recipientId,
+            answers: updatedAnswers,
+          }),
+        });
+
+        const data = await res.json();
+        const finalScore = data.success ? data.score : updatedAnswers.filter((a, i) => questions[i]?.options[a]?.isCorrect).length;
+        setScore(finalScore);
+      } catch {
+        // Fallback calculation
+        const localScore = updatedAnswers.filter((a, i) => questions[i]?.options[a]?.isCorrect).length;
+        setScore(localScore);
+      } finally {
+        setIsGrading(false);
+        setQuizFinished(true);
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 },
+        });
+      }
     }
   };
+
+  if (isGrading) {
+    return (
+      <div className="w-full max-w-xl mx-auto p-12 text-center glass-panel rounded-3xl border border-white/10">
+        <Loader2 className="w-8 h-8 animate-spin mx-auto text-amber-400 mb-4" />
+        <h4 className="font-cinematic text-lg text-white font-bold mb-1">
+          Grading Celestial Answers...
+        </h4>
+        <p className="text-xs text-slate-400">Recording attempt into the Starlight Archive</p>
+      </div>
+    );
+  }
 
   if (quizFinished) {
     return (
@@ -191,7 +230,7 @@ export default function QuizContainer({
             }}
           >
             <span>
-              {currentIdx < questions.length - 1 ? "Next Question" : "View Results"}
+              {currentIdx < questions.length - 1 ? "Next Question" : "Complete & Grade Quiz"}
             </span>
             <ArrowRight className="w-4 h-4" />
           </button>

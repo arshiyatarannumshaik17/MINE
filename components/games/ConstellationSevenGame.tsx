@@ -121,3 +121,4 @@ export default function ConstellationSevenGame({ onComplete, themeColor }: MiniG
     </div>
   );
 }
+

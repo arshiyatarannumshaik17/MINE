@@ -75,3 +75,4 @@ export default function WafeeqaButterflyGame({ onComplete, themeColor }: MiniGam
     </div>
   );
 }
+

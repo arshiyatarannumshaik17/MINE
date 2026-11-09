@@ -108,3 +108,4 @@ export default function WaterBottleCatchGame({ onComplete, themeColor }: MiniGam
     </div>
   );
 }
+

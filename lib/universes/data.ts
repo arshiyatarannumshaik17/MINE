@@ -1582,3 +1582,4 @@ export const UNIVERSES_DATA: Record<UniverseId, UniverseSpecification> = {
 export function getUniverseSpecification(id: UniverseId): UniverseSpecification | null {
   return UNIVERSES_DATA[id] || null;
 }
+
