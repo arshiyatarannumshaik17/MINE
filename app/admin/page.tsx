@@ -211,7 +211,7 @@ export default function AdminDashboardPage() {
                 key={rec.recipientId}
                 recipient={rec}
                 onOpenQR={(r) => setSelectedQRRecipient(r)}
-                onResetLock={handleResetLock}
+                onRefresh={fetchOverview}
               />
             ))}
           </div>

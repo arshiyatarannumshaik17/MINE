@@ -12,6 +12,14 @@ export type UniverseId =
   | "muskan"
   | "sana";
 
+export type RecipientSlug = UniverseId | "pappa";
+
+export function normalizeUniverseId(id: string): UniverseId {
+  const clean = id.toLowerCase().trim();
+  if (clean === "pappa") return "abbu";
+  return clean as UniverseId;
+}
+
 export interface UniverseTheme {
   primary: string;
   secondary: string;

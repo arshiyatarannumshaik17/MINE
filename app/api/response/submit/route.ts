@@ -1,38 +1,51 @@
 import { NextRequest, NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
+import { ResponseRepository } from "@/lib/db/repositories/response-repository";
+import { verifySignedSessionToken } from "@/lib/security/token-verifier";
+import { UniverseId, normalizeUniverseId } from "@/lib/types";
 
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
-    const { universeId, recipientName, mood, message, timestamp } = data;
+    const { universeId, recipientName, mood, message } = data;
 
     if (!universeId || !message) {
-      return NextResponse.json({ success: false, error: "Missing fields" }, { status: 400 });
+      return NextResponse.json({ success: false, error: "Missing required fields" }, { status: 400 });
     }
 
-    const logEntry = {
-      universeId,
-      recipientName,
-      mood,
-      message,
-      timestamp: timestamp || new Date().toISOString(),
-      userAgent: req.headers.get("user-agent") || "unknown",
-    };
+    // Verify session
+    const sessionCookie = req.cookies.get("universe_session")?.value;
+    if (!sessionCookie) {
+      return NextResponse.json(
+        { success: false, error: "Authentication required to send message" },
+        { status: 401 }
+      );
+    }
 
-    // Safely write to local responses vault file if possible
-    try {
-      const responsesDir = path.join(process.cwd(), "data");
-      if (!fs.existsSync(responsesDir)) {
-        fs.mkdirSync(responsesDir, { recursive: true });
-      }
-      const filePath = path.join(responsesDir, "recipient_responses.jsonl");
-      fs.appendFileSync(filePath, JSON.stringify(logEntry) + "\n");
-    } catch {}
+    const authenticatedId = verifySignedSessionToken(sessionCookie);
+    if (!authenticatedId) {
+      return NextResponse.json(
+        { success: false, error: "Invalid or expired session" },
+        { status: 401 }
+      );
+    }
 
-    return NextResponse.json({ success: true, message: "Response vaulted safely" });
+    // Anti-IDOR enforcement: verify session matches sender universe
+    if (normalizeUniverseId(authenticatedId) !== normalizeUniverseId(universeId)) {
+      return NextResponse.json(
+        { success: false, error: "Access denied: Cannot submit response on behalf of another recipient" },
+        { status: 403 }
+      );
+    }
+
+    const saved = ResponseRepository.addResponse({
+      universeId: normalizeUniverseId(universeId),
+      recipientName: recipientName || universeId,
+      mood: mood || "Heartfelt Love",
+      message: message.trim(),
+    });
+
+    return NextResponse.json({ success: true, message: "Response sealed in the Starlight Vault", recordId: saved.id });
   } catch {
     return NextResponse.json({ success: false, error: "Failed to vault response" }, { status: 500 });
   }
 }
-

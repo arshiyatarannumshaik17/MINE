@@ -142,6 +142,7 @@ export default function UniverseStage() {
               character={character}
               themeColor={theme.primary}
               accentColor={theme.accent}
+              universeId={universe.id}
             />
 
             <button

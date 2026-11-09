@@ -2,19 +2,21 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
-import { CharacterConcept } from "@/lib/types";
-import { Sparkles, Heart, Quote } from "lucide-react";
+import { CharacterConcept, UniverseId } from "@/lib/types";
+import { Sparkles, Quote } from "lucide-react";
 
 interface Avatar3DViewerProps {
   character: CharacterConcept;
   themeColor: string;
   accentColor: string;
+  universeId?: UniverseId;
 }
 
 export default function Avatar3DViewer({
   character,
   themeColor,
   accentColor,
+  universeId,
 }: Avatar3DViewerProps) {
   const canvasRef = useRef<HTMLDivElement>(null);
   const [isInteracting, setIsInteracting] = useState(false);
@@ -43,11 +45,11 @@ export default function Avatar3DViewer({
       const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
       scene.add(ambientLight);
 
-      const keyLight = new THREE.PointLight(new THREE.Color(themeColor), 2.5, 20);
+      const keyLight = new THREE.PointLight(new THREE.Color(themeColor), 2.8, 20);
       keyLight.position.set(4, 4, 5);
       scene.add(keyLight);
 
-      const rimLight = new THREE.PointLight(new THREE.Color(accentColor), 2.0, 20);
+      const rimLight = new THREE.PointLight(new THREE.Color(accentColor), 2.2, 20);
       rimLight.position.set(-4, -2, -3);
       scene.add(rimLight);
 
@@ -55,38 +57,94 @@ export default function Avatar3DViewer({
       const avatarGroup = new THREE.Group();
       scene.add(avatarGroup);
 
-      // Core Stylized 3D Character Mesh (Stylized Hero Jewel / Hologram Core)
-      const coreGeo = new THREE.DodecahedronGeometry(1.4, 1);
-      const coreMat = new THREE.MeshPhysicalMaterial({
+      // Material tailored to theme
+      const heroMaterial = new THREE.MeshPhysicalMaterial({
         color: new THREE.Color(themeColor),
         emissive: new THREE.Color(themeColor),
-        emissiveIntensity: 0.25,
-        roughness: 0.1,
-        metalness: 0.4,
-        clearcoat: 0.9,
+        emissiveIntensity: 0.35,
+        roughness: 0.15,
+        metalness: 0.5,
+        clearcoat: 1.0,
         clearcoatRoughness: 0.1,
-        wireframe: false,
       });
-      const coreMesh = new THREE.Mesh(coreGeo, coreMat);
-      avatarGroup.add(coreMesh);
 
-      // Floating Celestial Rings around Avatar
-      const ringGeo = new THREE.TorusGeometry(2.1, 0.04, 16, 100);
-      const ringMat = new THREE.MeshBasicMaterial({
+      const accentMaterial = new THREE.MeshBasicMaterial({
         color: new THREE.Color(accentColor),
         transparent: true,
-        opacity: 0.8,
+        opacity: 0.85,
       });
-      const ring1 = new THREE.Mesh(ringGeo, ringMat);
-      ring1.rotation.x = Math.PI / 3;
-      avatarGroup.add(ring1);
 
-      const ring2 = new THREE.Mesh(ringGeo, ringMat);
-      ring2.rotation.y = Math.PI / 3;
-      avatarGroup.add(ring2);
+      // Bespoke Geometries per Universe
+      if (universeId === "abbu") {
+        // Abbu: Royal Lantern of Protection & Guidance
+        const lanternBase = new THREE.CylinderGeometry(0.7, 0.95, 1.6, 8);
+        const lanternCap = new THREE.ConeGeometry(1.15, 0.65, 8);
+        const baseMesh = new THREE.Mesh(lanternBase, heroMaterial);
+        const capMesh = new THREE.Mesh(lanternCap, heroMaterial);
+        capMesh.position.y = 1.05;
+        avatarGroup.add(baseMesh);
+        avatarGroup.add(capMesh);
+
+        // Protective aura rings
+        const ringGeo = new THREE.TorusGeometry(2.0, 0.04, 16, 64);
+        const ring = new THREE.Mesh(ringGeo, accentMaterial);
+        ring.rotation.x = Math.PI / 2;
+        avatarGroup.add(ring);
+      } else if (universeId === "afrid") {
+        // Afrid: Celestial Star & Compass of 7 Years
+        const starGeo = new THREE.OctahedronGeometry(1.2, 0);
+        const starMesh = new THREE.Mesh(starGeo, heroMaterial);
+        avatarGroup.add(starMesh);
+
+        // 7 Orbiting Diamond Stars (Year 1 to Year 7)
+        for (let i = 0; i < 7; i++) {
+          const angle = (i / 7) * Math.PI * 2;
+          const miniStarGeo = new THREE.OctahedronGeometry(0.18, 0);
+          const miniMesh = new THREE.Mesh(miniStarGeo, accentMaterial);
+          miniMesh.position.set(Math.cos(angle) * 2.2, Math.sin(angle) * 2.2, 0);
+          avatarGroup.add(miniMesh);
+        }
+
+        const compassRingGeo = new THREE.TorusGeometry(2.2, 0.03, 16, 64);
+        const compassRing = new THREE.Mesh(compassRingGeo, accentMaterial);
+        avatarGroup.add(compassRing);
+      } else if (universeId === "sameer") {
+        // Sameer: Playful Comic Ice Cube (Cold Water Bottle Vault)
+        const cubeGeo = new THREE.BoxGeometry(1.6, 1.6, 1.6);
+        const cubeMesh = new THREE.Mesh(cubeGeo, heroMaterial);
+        avatarGroup.add(cubeMesh);
+
+        // Comic energy shards
+        const shardGeo = new THREE.TetrahedronGeometry(0.35);
+        for (let i = 0; i < 4; i++) {
+          const shard = new THREE.Mesh(shardGeo, accentMaterial);
+          shard.position.set((Math.random() - 0.5) * 3, (Math.random() - 0.5) * 3, (Math.random() - 0.5) * 2);
+          avatarGroup.add(shard);
+        }
+      } else if (universeId === "jhansi") {
+        // Jhansi: Fierce Wanderlust Prism
+        const prismGeo = new THREE.ConeGeometry(1.3, 2.0, 4);
+        const prismMesh = new THREE.Mesh(prismGeo, heroMaterial);
+        avatarGroup.add(prismMesh);
+
+        const ringGeo = new THREE.TorusGeometry(1.9, 0.04, 16, 64);
+        const ring = new THREE.Mesh(ringGeo, accentMaterial);
+        ring.rotation.x = Math.PI / 4;
+        avatarGroup.add(ring);
+      } else {
+        // Default Starlight Dodecahedron Core
+        const coreGeo = new THREE.DodecahedronGeometry(1.4, 1);
+        const coreMesh = new THREE.Mesh(coreGeo, heroMaterial);
+        avatarGroup.add(coreMesh);
+
+        const ringGeo = new THREE.TorusGeometry(2.1, 0.04, 16, 64);
+        const ring1 = new THREE.Mesh(ringGeo, accentMaterial);
+        ring1.rotation.x = Math.PI / 3;
+        avatarGroup.add(ring1);
+      }
 
       // Orbiting Sparkle Particles
-      const particleCount = 40;
+      const particleCount = 45;
       const particleGeo = new THREE.BufferGeometry();
       const pPositions = new Float32Array(particleCount * 3);
 
@@ -103,7 +161,7 @@ export default function Avatar3DViewer({
 
       const particleMat = new THREE.PointsMaterial({
         color: new THREE.Color(accentColor),
-        size: 0.08,
+        size: 0.09,
         transparent: true,
         opacity: 0.9,
       });
@@ -143,14 +201,12 @@ export default function Avatar3DViewer({
         animId = requestAnimationFrame(animate);
         const elapsed = clock.getElapsedTime();
 
-        // Idle breathing and gentle levitation
+        // Idle levitation
         avatarGroup.position.y = Math.sin(elapsed * 1.5) * 0.15;
         if (!isDragging) {
           avatarGroup.rotation.y += 0.008;
         }
 
-        ring1.rotation.z = elapsed * 0.5;
-        ring2.rotation.z = -elapsed * 0.4;
         sparkles.rotation.y = -elapsed * 0.2;
 
         renderer?.render(scene, camera);
@@ -168,7 +224,7 @@ export default function Avatar3DViewer({
         }
       };
     } catch {}
-  }, [themeColor, accentColor]);
+  }, [themeColor, accentColor, universeId]);
 
   return (
     <div className="flex flex-col items-center justify-center p-4">
@@ -208,7 +264,7 @@ export default function Avatar3DViewer({
           {character.subtitle}
         </p>
 
-        <div className="flex items-center justify-center gap-1.5 text-xs text-slate-300 mb-3 italic bg-slate-900/60 py-2 px-3 rounded-lg border border-white/5">
+        <div className="flex items-center justify-center gap-1.5 text-xs text-slate-300 mb-3 italic bg-slate-950/60 py-2 px-3 rounded-lg border border-white/5">
           <Quote className="w-3 h-3 flex-shrink-0 text-slate-400" />
           <span>&ldquo;{character.signatureQuote}&rdquo;</span>
         </div>
@@ -228,4 +284,3 @@ export default function Avatar3DViewer({
     </div>
   );
 }
-

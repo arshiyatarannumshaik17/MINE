@@ -1,4 +1,4 @@
-import { UniverseSpecification, UniverseId } from "@/lib/types";
+import { UniverseSpecification, UniverseId, normalizeUniverseId } from "@/lib/types";
 
 export const UNIVERSES_DATA: Record<UniverseId, UniverseSpecification> = {
   abbu: {
@@ -1579,7 +1579,8 @@ export const UNIVERSES_DATA: Record<UniverseId, UniverseSpecification> = {
   },
 };
 
-export function getUniverseSpecification(id: UniverseId): UniverseSpecification | null {
-  return UNIVERSES_DATA[id] || null;
+export function getUniverseSpecification(id: UniverseId | string): UniverseSpecification | null {
+  const normalized = normalizeUniverseId(id);
+  return UNIVERSES_DATA[normalized] || null;
 }
 

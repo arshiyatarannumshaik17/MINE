@@ -38,11 +38,11 @@ export const QRCodeGenerator = {
   },
 
   /**
-   * Helper to build recipient portal URL
+   * Helper to build recipient portal URL (Direct to /enter/:token)
    */
   buildInviteUrl(baseUrl: string, token: string): string {
     const cleanBase = baseUrl.replace(/\/+$/, "");
-    return `${cleanBase}/portal?key=${encodeURIComponent(token)}`;
+    return `${cleanBase}/enter/${encodeURIComponent(token)}`;
   },
 };
 
