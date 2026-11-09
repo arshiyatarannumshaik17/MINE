@@ -32,7 +32,7 @@ export default function HeroShieldGame({ onComplete, themeColor }: MiniGameProps
               const newScore = s + 1;
               if (newScore >= target) {
                 setIsWon(true);
-                confetti({ particleCount: 70, spread: 60 });
+                confetti({ particleCount: 75, spread: 65 });
               }
               return newScore;
             });
@@ -68,16 +68,19 @@ export default function HeroShieldGame({ onComplete, themeColor }: MiniGameProps
           <div className="flex items-center gap-2">
             <Shield className="w-5 h-5 text-amber-400" />
             <h3 className="font-cinematic text-base font-bold text-white">
-              The Hero&apos;s Shield
+              The Hero&apos;s Shield — నాన్న రక్షణ ఛత్రం
             </h3>
           </div>
           <span className="text-xs font-mono px-3 py-1 rounded-full bg-white/5 border border-white/10 text-amber-300">
-            Jasmine Blooms: {score} / {target}
+            మల్లెపూలు: {score} / {target}
           </span>
         </div>
 
-        <p className="text-xs text-slate-300 mb-4">
-          Move Abbu&apos;s golden shield to catch life&apos;s raindrops and transform them into blooming jasmine flowers!
+        <p className="text-xs text-slate-300 mb-2 font-telugu leading-relaxed">
+          అబ్బు రక్షణ ఛత్రాన్ని కదిలించి జీవితంలోని కష్టాల వర్షాన్ని తాకి, వాటిని సువాసనల బంగారు మల్లెపూలుగా మార్చండి!
+        </p>
+        <p className="text-[11px] text-slate-400 mb-4">
+          Move Abbu&apos;s golden shield left and right to catch raindrops into jasmine blooms.
         </p>
 
         {/* Interactive Play Arena */}
@@ -110,8 +113,8 @@ export default function HeroShieldGame({ onComplete, themeColor }: MiniGameProps
               }}
             >
               <Shield className="w-6 h-6" style={{ color: themeColor }} />
-              <span className="text-xs font-bold text-white uppercase tracking-wider">
-                Abbu&apos;s Shelter
+              <span className="text-xs font-bold text-white uppercase tracking-wider font-telugu">
+                నాన్న రక్షణ
               </span>
             </div>
           </div>
@@ -122,17 +125,20 @@ export default function HeroShieldGame({ onComplete, themeColor }: MiniGameProps
           <div className="mt-4 p-5 rounded-2xl bg-amber-950/40 border border-amber-500/30 animate-in fade-in">
             <div className="flex items-center justify-center gap-2 mb-2 text-amber-400">
               <Flower2 className="w-5 h-5" />
-              <h4 className="font-cinematic font-bold">Sheltered in Love</h4>
+              <h4 className="font-cinematic font-bold">నాన్న ప్రేమలో సురక్షితం</h4>
             </div>
-            <p className="text-xs sm:text-sm text-slate-200 italic mb-4">
+            <p className="text-xs sm:text-sm text-slate-200 italic mb-2 font-telugu">
+              &ldquo;నాపై ఏ తుఫాను పడకుండా మీ ప్రేమే నాకు గొడుగుగా నిలిచింది అబ్బు. ఎప్పటికీ మీ చిట్టి తల్లిని.&rdquo;
+            </p>
+            <p className="text-xs text-slate-300 mb-4">
               &ldquo;No storm ever touched me, because your love was my shelter. Always your little princess, Abbu.&rdquo;
             </p>
             <button
               onClick={onComplete}
-              className="px-6 py-2.5 rounded-xl font-semibold text-white tracking-wide shadow-xl"
+              className="px-6 py-2.5 rounded-xl font-semibold text-white tracking-wide shadow-xl cursor-pointer"
               style={{ backgroundColor: themeColor }}
             >
-              Proceed to Abbu&apos;s Quiz
+              Proceed to Abbu&apos;s Quiz (అబ్బు క్విజ్)
             </button>
           </div>
         )}
@@ -140,4 +146,3 @@ export default function HeroShieldGame({ onComplete, themeColor }: MiniGameProps
     </div>
   );
 }
-

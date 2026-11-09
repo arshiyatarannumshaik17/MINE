@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { DialogueNode } from "@/lib/types";
 import { soundEngine } from "@/lib/audio/sound-engine";
-import { ChevronRight, FastForward, MessageSquareQuote } from "lucide-react";
+import { ChevronRight, FastForward, MessageSquareQuote, Sparkles } from "lucide-react";
 
 interface DialogueBoxProps {
   dialogues: DialogueNode[];
@@ -21,6 +21,7 @@ export default function DialogueBox({
   const [isTyping, setIsTyping] = useState(true);
 
   const currentDialogue = dialogues[currentIndex];
+  const isArshiya = currentDialogue?.speaker === "Arshiya";
 
   useEffect(() => {
     if (!currentDialogue) return;
@@ -48,7 +49,6 @@ export default function DialogueBox({
 
   const handleNext = () => {
     if (isTyping) {
-      // Instant reveal
       setDisplayedText(currentDialogue.text);
       setIsTyping(false);
       return;
@@ -69,21 +69,36 @@ export default function DialogueBox({
         {/* Ambient Top Glow */}
         <div
           className="absolute -top-16 left-1/4 w-72 h-32 rounded-full blur-3xl opacity-25 pointer-events-none"
-          style={{ backgroundColor: themeColor }}
+          style={{ backgroundColor: isArshiya ? "#ec4899" : themeColor }}
         />
 
         {/* Header / Speaker Info */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2.5">
-            <span className="p-1.5 rounded-lg bg-white/10 text-white">
-              <MessageSquareQuote className="w-4 h-4" style={{ color: themeColor }} />
+            <span
+              className="p-1.5 rounded-lg text-white"
+              style={{ backgroundColor: isArshiya ? "#ec489930" : "rgba(255,255,255,0.1)" }}
+            >
+              {isArshiya ? (
+                <Sparkles className="w-4 h-4 text-pink-400" />
+              ) : (
+                <MessageSquareQuote className="w-4 h-4" style={{ color: themeColor }} />
+              )}
             </span>
+
             <span
               className="font-cinematic text-sm sm:text-base font-bold tracking-wider uppercase"
-              style={{ color: themeColor }}
+              style={{ color: isArshiya ? "#f472b6" : themeColor }}
             >
               {currentDialogue.speaker}
             </span>
+
+            {isArshiya && (
+              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-pink-500/20 border border-pink-400/30 text-pink-300">
+                Arshiya (Storyteller)
+              </span>
+            )}
+
             {currentDialogue.emotion && (
               <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-slate-400 capitalize">
                 {currentDialogue.emotion}
@@ -96,20 +111,20 @@ export default function DialogueBox({
           </div>
         </div>
 
-        {/* Telugu Subtitle (If available) */}
+        {/* Telugu Subtitle / Primary Text (If available) */}
         {currentDialogue.teluguText && (
-          <div className="font-telugu text-sm sm:text-base text-amber-300/90 mb-2.5 font-medium leading-relaxed italic border-l-2 pl-3 border-amber-400/40">
+          <div className="font-telugu text-base sm:text-lg text-amber-300 font-semibold mb-3 leading-relaxed border-l-2 pl-3 border-amber-400/50">
             {currentDialogue.teluguText}
           </div>
         )}
 
         {/* Main Dialogue Text */}
-        <p className="text-base sm:text-lg text-slate-100 font-normal leading-relaxed min-h-[4.5rem]">
+        <p className="text-sm sm:text-base text-slate-200 font-normal leading-relaxed min-h-[4rem]">
           {displayedText}
           {isTyping && (
             <span
               className="inline-block w-2 h-4 ml-1 translate-y-0.5 animate-pulse"
-              style={{ backgroundColor: themeColor }}
+              style={{ backgroundColor: isArshiya ? "#ec4899" : themeColor }}
             />
           )}
         </p>
@@ -134,8 +149,8 @@ export default function DialogueBox({
             onClick={handleNext}
             className="flex items-center gap-2 px-5 py-2 rounded-xl text-xs sm:text-sm font-semibold tracking-wide text-white transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg"
             style={{
-              backgroundColor: themeColor,
-              boxShadow: `0 0 20px ${themeColor}40`,
+              backgroundColor: isArshiya ? "#ec4899" : themeColor,
+              boxShadow: `0 0 20px ${isArshiya ? "#ec489940" : `${themeColor}40`}`,
             }}
           >
             <span>
@@ -148,4 +163,3 @@ export default function DialogueBox({
     </div>
   );
 }
-

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { soundEngine } from "@/lib/audio/sound-engine";
 import confetti from "canvas-confetti";
-import { Utensils, Award } from "lucide-react";
+import { Utensils, Award, Sparkles, MapPin } from "lucide-react";
 
 interface MiniGameProps {
   onComplete: () => void;
@@ -14,14 +14,15 @@ export default function StreetFoodScrambleGame({ onComplete, themeColor }: MiniG
   const [score, setScore] = useState(0);
   const [target] = useState(6);
   const [isWon, setIsWon] = useState(false);
-  const [snacks, setSnacks] = useState<{ id: number; icon: string; name: string; x: number }[]>([]);
+  const [activeSpot, setActiveSpot] = useState("Random Park Street Food Corner");
+  const [snacks, setSnacks] = useState<{ id: number; icon: string; name: string; spot: string; x: number }[]>([]);
 
   const foodOptions = [
-    { icon: "🥟", name: "Panipuri" },
-    { icon: "☕", name: "Cutting Chai" },
-    { icon: "🍛", name: "Biryani" },
-    { icon: "🥪", name: "Sandwich" },
-    { icon: "🍟", name: "Peri Fries" },
+    { icon: "🥟", name: "Final Year Panipuri", spot: "Random Park Gate" },
+    { icon: "☕", name: "Dump-Fellow Cutting Chai", spot: "Campus Backlane" },
+    { icon: "🍛", name: "Engineering Stress Biryani", spot: "Food Street" },
+    { icon: "🥪", name: "Stubborn Queen Grilled Toast", spot: "Library Corner" },
+    { icon: "🍟", name: "Fast Food Peri Peri Fries", spot: "Adventure Spot" },
   ];
 
   useEffect(() => {
@@ -33,6 +34,7 @@ export default function StreetFoodScrambleGame({ onComplete, themeColor }: MiniG
         id: Date.now() + Math.random(),
         icon: food.icon,
         name: food.name,
+        spot: food.spot,
         x: Math.random() * 80 + 10,
       };
       setSnacks((prev) => [...prev.slice(-5), newSnack]);
@@ -41,11 +43,12 @@ export default function StreetFoodScrambleGame({ onComplete, themeColor }: MiniG
     return () => clearInterval(interval);
   }, [isWon]);
 
-  const handleCatchSnack = (id: number) => {
+  const handleCatchSnack = (snack: { id: number; spot: string }) => {
     soundEngine.playSuccessChime();
     const newScore = score + 1;
     setScore(newScore);
-    setSnacks((prev) => prev.filter((s) => s.id !== id));
+    setActiveSpot(snack.spot);
+    setSnacks((prev) => prev.filter((s) => s.id !== snack.id));
 
     if (newScore >= target) {
       setIsWon(true);
@@ -58,49 +61,55 @@ export default function StreetFoodScrambleGame({ onComplete, themeColor }: MiniG
       <div className="glass-panel rounded-3xl p-6 border border-white/10 text-center relative overflow-hidden">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <Utensils className="w-5 h-5 text-amber-500" />
+            <Utensils className="w-5 h-5 text-orange-400" />
             <h3 className="font-cinematic text-base font-bold text-white">
-              B.Tech Street Food Scramble
+              Street Food Scramble &amp; Dump-Fellow Trek
             </h3>
           </div>
-          <span className="text-xs font-mono px-3 py-1 rounded-full bg-white/5 border border-white/10 text-amber-400">
-            Snacks Gathered: {score} / {target}
+          <span className="text-xs font-mono px-3 py-1 rounded-full bg-white/5 border border-white/10 text-orange-300">
+            Food Treats: {score} / {target}
           </span>
         </div>
 
-        <p className="text-xs text-slate-300 mb-4">
-          Tap the tasty college street snacks 🥟☕ to power through final-year B.Tech!
+        {/* Spot Indicator */}
+        <div className="flex items-center justify-center gap-1.5 p-2 mb-4 rounded-xl bg-orange-950/40 border border-orange-500/20 text-orange-200 text-xs font-semibold">
+          <MapPin className="w-3.5 h-3.5 text-orange-400" />
+          <span>Spot: {activeSpot}</span>
+        </div>
+
+        <p className="text-xs text-slate-300 mb-6">
+          Catch 6 fast food delicacies across random parks to survive B.Tech final year stress!
         </p>
 
-        <div className="relative h-64 sm:h-72 w-full rounded-2xl bg-gradient-to-b from-slate-950 via-amber-950/20 to-slate-950 border border-white/10 overflow-hidden select-none flex items-center justify-center">
-          {snacks.map((snack) => (
+        {/* Catch Arena */}
+        <div className="relative h-64 w-full rounded-2xl bg-gradient-to-b from-orange-950/30 via-slate-950 to-orange-950/20 border border-white/10 overflow-hidden">
+          {snacks.map((s) => (
             <button
-              key={snack.id}
-              onClick={() => handleCatchSnack(snack.id)}
-              className="absolute -translate-x-1/2 p-3 rounded-2xl text-3xl animate-bounce hover:scale-125 transition-transform"
-              style={{ left: `${snack.x}%`, top: `${Math.random() * 50 + 20}%` }}
-              title={snack.name}
+              key={s.id}
+              onClick={() => handleCatchSnack(s)}
+              style={{ left: `${s.x}%`, top: "45%" }}
+              className="absolute -translate-x-1/2 -translate-y-1/2 p-2 rounded-2xl bg-white/10 border border-white/20 text-3xl animate-bounce hover:scale-125 transition-transform flex flex-col items-center"
             >
-              {snack.icon}
+              <span>{s.icon}</span>
+              <span className="text-[9px] font-sans font-bold text-orange-200 mt-0.5">{s.name}</span>
             </button>
           ))}
         </div>
 
         {isWon && (
-          <div className="mt-4 p-5 rounded-2xl bg-amber-950/50 border border-amber-500/30 animate-in fade-in">
-            <div className="flex items-center justify-center gap-2 mb-2 text-amber-400">
-              <Award className="w-5 h-5" />
-              <h4 className="font-cinematic font-bold">Food Queens of B.Tech!</h4>
+          <div className="mt-4 p-5 rounded-2xl bg-orange-950/50 border border-orange-400/40 animate-in fade-in">
+            <div className="flex items-center justify-center gap-2 mb-2 text-orange-300">
+              <Sparkles className="w-5 h-5 text-orange-400" />
+              <h4 className="font-cinematic font-bold">Food Queens Victorious!</h4>
             </div>
-            <p className="text-xs sm:text-sm text-slate-200 italic mb-4">
-              &ldquo;Diet canceled! Jhansi and Arshiya officially reign as the ultimate B.Tech Food Queens!&rdquo;
+            <p className="text-xs text-slate-300 mb-4">
+              Dump-fellow adventures conquered! No engineering exam could ever stop our street food quests.
             </p>
             <button
               onClick={onComplete}
-              className="px-6 py-2.5 rounded-xl font-semibold text-white tracking-wide shadow-xl"
-              style={{ backgroundColor: themeColor }}
+              className="px-6 py-2.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs tracking-wider transition-all shadow-lg"
             >
-              Proceed to Jhansi&apos;s Quiz
+              Continue to Jhansi&apos;s Quiz
             </button>
           </div>
         )}
@@ -108,4 +117,3 @@ export default function StreetFoodScrambleGame({ onComplete, themeColor }: MiniG
     </div>
   );
 }
-

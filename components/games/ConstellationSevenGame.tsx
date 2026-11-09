@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { soundEngine } from "@/lib/audio/sound-engine";
 import confetti from "canvas-confetti";
-import { Sparkles, Heart, Star } from "lucide-react";
+import { Sparkles, Heart, Star, Compass } from "lucide-react";
 
 interface MiniGameProps {
   onComplete: () => void;
@@ -11,13 +11,13 @@ interface MiniGameProps {
 }
 
 const MILESTONES = [
-  { year: 1, title: "Year 1: The Shy Beginning", text: "Stolen glances and discovering a universe in your smile." },
-  { year: 2, title: "Year 2: Growing Together", text: "Long late-night calls and sharing our deepest ambitions." },
-  { year: 3, title: "Year 3: Through Every Storm", text: "Your patience and loyalty showing me what true care is." },
-  { year: 4, title: "Year 4: Trips & Long Drives", text: "Empty roads, favorite songs on loop, your hand in mine." },
-  { year: 5, title: "Year 5: Deep Maturity", text: "Knowing what the other thinks before a single word is spoken." },
-  { year: 6, title: "Year 6: Unshakable Faith", text: "Building dreams and praying for our future side by side." },
-  { year: 7, title: "Year 7: One Universe", text: "Seven beautiful years. An In Sha Allah forever together." },
+  { year: 1, title: "Year 1: Starlight Beginning", text: "When our paths first crossed and Offu ga became my universe." },
+  { year: 2, title: "Year 2: Rollapadu Grasslands", text: "Gentle breeze across open plains, discovering true companionship." },
+  { year: 3, title: "Year 3: Holy Peace at Darga", text: "Quiet prayers, heartfelt peace, and praying for each other." },
+  { year: 4, title: "Year 4: City Forest Escapes", text: "Surrounded by greenery, deep conversations, and shared laughter." },
+  { year: 5, title: "Year 5: Belum Caves Wonder", text: "Exploring underground wonders side-by-side, holding hands." },
+  { year: 6, title: "Year 6: Sunkesla Road (IYKYK!)", text: "Unforgettable long drives on Sunkesla Road. Empty highway, twilight sky, holding hands... IYKYK!" },
+  { year: 7, title: "Year 7: An In Sha Allah Forever", text: "2,555 days of devotion. Ready to build our blessed home together, In Sha Allah." },
 ];
 
 export default function ConstellationSevenGame({ onComplete, themeColor }: MiniGameProps) {
@@ -50,70 +50,62 @@ export default function ConstellationSevenGame({ onComplete, themeColor }: MiniG
       <div className="glass-panel rounded-3xl p-6 border border-white/10 text-center relative overflow-hidden">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-rose-400" />
+            <Compass className="w-5 h-5 text-rose-400" />
             <h3 className="font-cinematic text-base font-bold text-white">
-              Constellation of Seven
+              Constellation of Seven &amp; Sunkesla Trails
             </h3>
           </div>
           <span className="text-xs font-mono px-3 py-1 rounded-full bg-white/5 border border-white/10 text-rose-300">
-            Stars Lit: {unlockedStars.length} / 7
+            Milestones: {unlockedStars.length} / 7
           </span>
         </div>
 
-        <p className="text-xs text-slate-300 mb-4">
-          Tap each of the 7 celestial stars to illuminate our 7-year journey together.
+        <p className="text-xs text-slate-300 mb-6">
+          Connect all 7 stars — from Rollapadu to Sunkesla Road — to light up our seven-year love constellation!
         </p>
 
-        {/* Constellation Star Map */}
-        <div className="relative h-64 sm:h-72 w-full rounded-2xl bg-gradient-to-b from-indigo-950/60 via-slate-950 to-rose-950/40 border border-white/10 overflow-hidden flex items-center justify-center p-4">
-          <div className="grid grid-cols-4 sm:grid-cols-7 gap-3 sm:gap-2 w-full max-w-md z-10">
-            {MILESTONES.map((m) => {
-              const isLit = unlockedStars.includes(m.year);
-              return (
-                <button
-                  key={m.year}
-                  onClick={() => handleStarClick(m.year)}
-                  className={`flex flex-col items-center justify-center p-2.5 rounded-xl border transition-all duration-300 transform hover:scale-110 active:scale-95 ${
-                    isLit
-                      ? "bg-rose-900/40 border-rose-400 shadow-[0_0_15px_#f43f5e] text-rose-200"
-                      : "bg-white/5 border-white/10 text-slate-400 hover:border-white/30"
-                  }`}
-                >
-                  <Star
-                    className={`w-6 h-6 mb-1 ${
-                      isLit ? "fill-rose-400 text-rose-400 animate-pulse" : "text-slate-500"
-                    }`}
-                  />
-                  <span className="text-[10px] font-bold">Yr {m.year}</span>
-                </button>
-              );
-            })}
-          </div>
+        {/* 7 Star Nodes */}
+        <div className="grid grid-cols-4 sm:grid-cols-7 gap-2 mb-6">
+          {MILESTONES.map((m) => {
+            const isLit = unlockedStars.includes(m.year);
+            return (
+              <button
+                key={m.year}
+                onClick={() => handleStarClick(m.year)}
+                className={`flex flex-col items-center justify-center p-3 rounded-2xl border transition-all duration-300 transform hover:scale-110 active:scale-95 ${
+                  isLit
+                    ? "bg-rose-500/20 border-rose-400/60 text-rose-200 shadow-lg shadow-rose-500/20"
+                    : "bg-white/5 border-white/10 text-slate-500 hover:text-slate-300"
+                }`}
+              >
+                <Star className={`w-5 h-5 mb-1 ${isLit ? "fill-rose-400 text-rose-400 animate-pulse" : ""}`} />
+                <span className="text-[10px] font-mono font-bold">Y{m.year}</span>
+              </button>
+            );
+          })}
         </div>
 
-        {/* Revealed Memory Banner */}
+        {/* Active Memory Card */}
         {activeMemory && (
-          <div className="mt-4 p-3.5 rounded-xl bg-slate-900/80 border border-white/10 text-xs text-rose-200 italic animate-in fade-in">
-            &ldquo;{activeMemory}&rdquo;
+          <div className="p-4 rounded-2xl bg-rose-950/40 border border-rose-500/30 text-rose-100 text-xs sm:text-sm leading-relaxed mb-6 animate-in fade-in">
+            {activeMemory}
           </div>
         )}
 
-        {/* Completion Message */}
         {isCompleted && (
-          <div className="mt-4 p-5 rounded-2xl bg-rose-950/50 border border-rose-500/30 animate-in fade-in">
-            <div className="flex items-center justify-center gap-2 mb-2 text-rose-400">
-              <Heart className="w-5 h-5 fill-rose-400" />
-              <h4 className="font-cinematic font-bold">Seven Years, One Universe</h4>
+          <div className="mt-4 p-5 rounded-2xl bg-rose-950/50 border border-rose-400/40 animate-in fade-in">
+            <div className="flex items-center justify-center gap-2 mb-2 text-rose-300">
+              <Heart className="w-5 h-5 fill-rose-400 text-rose-400" />
+              <h4 className="font-cinematic font-bold">Seven Years Written in the Stars!</h4>
             </div>
-            <p className="text-xs sm:text-sm text-slate-200 italic mb-4">
-              &ldquo;Every star in my sky has your name on it. Seven down, a lifetime to go. In Sha Allah.&rdquo;
+            <p className="text-xs text-slate-300 mb-4">
+              From Rollapadu, Darga, City Forest, and Belum Caves to Sunkesla Road (IYKYK!), our journey is eternal.
             </p>
             <button
               onClick={onComplete}
-              className="px-6 py-2.5 rounded-xl font-semibold text-white tracking-wide shadow-xl"
-              style={{ backgroundColor: themeColor }}
+              className="px-6 py-2.5 rounded-xl bg-rose-500 hover:bg-rose-600 text-white font-bold text-xs tracking-wider transition-all shadow-lg"
             >
-              Proceed to Afrid&apos;s Quiz
+              Continue to Afrid&apos;s Quiz
             </button>
           </div>
         )}
@@ -121,4 +113,3 @@ export default function ConstellationSevenGame({ onComplete, themeColor }: MiniG
     </div>
   );
 }
-

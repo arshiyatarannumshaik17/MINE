@@ -26,6 +26,7 @@ import {
   HelpCircle,
   Gamepad2,
   BookOpen,
+  RotateCcw,
 } from "lucide-react";
 
 export default function UniverseStage() {
@@ -35,6 +36,7 @@ export default function UniverseStage() {
 
   const [universe, setUniverse] = useState<UniverseSpecification | null>(null);
   const [currentAct, setCurrentAct] = useState<number>(1);
+  const [maxUnlockedAct, setMaxUnlockedAct] = useState<number>(1);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [isResponseModalOpen, setIsResponseModalOpen] = useState(false);
 
@@ -47,6 +49,18 @@ export default function UniverseStage() {
     }
     setUniverse(spec);
   }, [universeId, router]);
+
+  const advanceToAct = (actNum: number) => {
+    soundEngine.playSuccessChime();
+    setCurrentAct(actNum);
+    setMaxUnlockedAct((prev) => Math.max(prev, actNum));
+  };
+
+  const replayExperience = () => {
+    soundEngine.playSuccessChime();
+    confetti({ particleCount: 70, spread: 60 });
+    setCurrentAct(1);
+  };
 
   if (!universe) {
     return (
@@ -63,6 +77,7 @@ export default function UniverseStage() {
       <CosmicBackground
         primaryColor={theme.primary}
         secondaryColor={theme.secondary}
+        universeId={universe.id}
       />
 
       <SoundController
@@ -84,18 +99,19 @@ export default function UniverseStage() {
           ].map((step) => {
             const Icon = step.icon;
             const isActive = currentAct === step.num;
-            const isPassed = currentAct > step.num;
+            const isUnlocked = step.num <= maxUnlockedAct;
 
             return (
               <button
                 key={step.num}
-                onClick={() => isPassed && setCurrentAct(step.num)}
+                onClick={() => isUnlocked && setCurrentAct(step.num)}
+                disabled={!isUnlocked}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all duration-300 ${
                   isActive
                     ? "text-white font-bold shadow-md"
-                    : isPassed
-                    ? "text-slate-300 hover:text-white"
-                    : "text-slate-500 opacity-60"
+                    : isUnlocked
+                    ? "text-slate-300 hover:text-white cursor-pointer"
+                    : "text-slate-600 opacity-40 cursor-not-allowed"
                 }`}
                 style={{
                   backgroundColor: isActive ? theme.primary : "transparent",
@@ -123,7 +139,7 @@ export default function UniverseStage() {
               {universe.title}
             </h1>
 
-            <p className="text-base sm:text-xl font-light text-slate-300 mb-8 max-w-xl">
+            <p className="text-base sm:text-xl font-light text-slate-300 mb-6 max-w-xl">
               {openingCinematic.subheadline}
             </p>
 
@@ -133,11 +149,11 @@ export default function UniverseStage() {
               </div>
             )}
 
-            <div className="text-sm sm:text-base italic text-slate-200 mb-10 max-w-md font-script">
+            <div className="text-sm sm:text-base italic text-slate-200 mb-8 max-w-md font-script">
               &ldquo;{openingCinematic.quote}&rdquo;
             </div>
 
-            {/* 3D Character Avatar Preview */}
+            {/* 3D Character Avatar & Arshiya 3D Storyteller Viewer */}
             <Avatar3DViewer
               character={character}
               themeColor={theme.primary}
@@ -146,11 +162,8 @@ export default function UniverseStage() {
             />
 
             <button
-              onClick={() => {
-                soundEngine.playSuccessChime();
-                setCurrentAct(2);
-              }}
-              className="mt-8 flex items-center gap-2 px-8 py-3.5 rounded-2xl font-bold text-white tracking-wide transition-all transform hover:scale-105 active:scale-95 shadow-2xl"
+              onClick={() => advanceToAct(2)}
+              className="mt-8 flex items-center gap-2 px-8 py-3.5 rounded-2xl font-bold text-white tracking-wide transition-all transform hover:scale-105 active:scale-95 shadow-2xl cursor-pointer"
               style={{
                 backgroundColor: theme.primary,
                 boxShadow: `0 0 35px ${theme.primary}60`,
@@ -175,10 +188,7 @@ export default function UniverseStage() {
             {/* Typewriter Dialogue Container */}
             <DialogueBox
               dialogues={storyActs.flatMap((act) => act.dialogues)}
-              onComplete={() => {
-                soundEngine.playSuccessChime();
-                setCurrentAct(3);
-              }}
+              onComplete={() => advanceToAct(3)}
               themeColor={theme.primary}
             />
           </div>
@@ -196,10 +206,7 @@ export default function UniverseStage() {
 
             <MiniGameDispatcher
               gameType={universe.miniGameType}
-              onComplete={() => {
-                soundEngine.playSuccessChime();
-                setCurrentAct(4);
-              }}
+              onComplete={() => advanceToAct(4)}
               themeColor={theme.primary}
             />
           </div>
@@ -213,10 +220,7 @@ export default function UniverseStage() {
               recipientName={universe.recipientName}
               recipientId={universe.id}
               themeColor={theme.primary}
-              onComplete={() => {
-                soundEngine.playSuccessChime();
-                setCurrentAct(5);
-              }}
+              onComplete={() => advanceToAct(5)}
             />
           </div>
         )}
@@ -264,11 +268,8 @@ export default function UniverseStage() {
             </div>
 
             <button
-              onClick={() => {
-                soundEngine.playSuccessChime();
-                setCurrentAct(6);
-              }}
-              className="mt-8 flex items-center gap-2 px-8 py-3.5 rounded-2xl font-bold text-white tracking-wide transition-all transform hover:scale-105 active:scale-95 shadow-xl"
+              onClick={() => advanceToAct(6)}
+              className="mt-8 flex items-center gap-2 px-8 py-3.5 rounded-2xl font-bold text-white tracking-wide transition-all transform hover:scale-105 active:scale-95 shadow-xl cursor-pointer"
               style={{
                 backgroundColor: theme.primary,
                 boxShadow: `0 0 30px ${theme.primary}50`,
@@ -280,7 +281,7 @@ export default function UniverseStage() {
           </div>
         )}
 
-        {/* ACT 6: ARSHIYA'S PRIVATE EMOTIONAL LETTER */}
+        {/* ACT 6: ARSHIYA'S PRIVATE EMOTIONAL LETTER & REPLAY */}
         {currentAct === 6 && (
           <div className="w-full max-w-2xl mx-auto animate-in fade-in duration-500">
             <div className="glass-panel rounded-3xl p-6 sm:p-10 border border-white/15 shadow-2xl relative overflow-hidden">
@@ -330,7 +331,7 @@ export default function UniverseStage() {
 
                 <button
                   onClick={() => setIsResponseModalOpen(true)}
-                  className="flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white tracking-wide transition-transform hover:scale-105 active:scale-95 shadow-xl"
+                  className="flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white tracking-wide transition-transform hover:scale-105 active:scale-95 shadow-xl cursor-pointer"
                   style={{
                     backgroundColor: theme.primary,
                     boxShadow: `0 0 20px ${theme.primary}40`,
@@ -339,6 +340,56 @@ export default function UniverseStage() {
                   <MessageCircle className="w-4 h-4" />
                   <span>Reply to Arshiya</span>
                 </button>
+              </div>
+
+              {/* REPLAY & ACT EXPLORER */}
+              <div className="mt-10 pt-6 border-t border-white/10">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-xs font-mono uppercase tracking-widest text-slate-400">
+                    Universe Experience Controls
+                  </span>
+                  <button
+                    onClick={replayExperience}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-semibold transition-all cursor-pointer"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5" />
+                    <span>Replay From Beginning</span>
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                  <button
+                    onClick={() => setCurrentAct(2)}
+                    className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 text-xs text-slate-300 hover:text-white transition-all text-center flex flex-col items-center gap-1"
+                  >
+                    <Sparkles className="w-4 h-4" style={{ color: theme.primary }} />
+                    <span>Re-read Story</span>
+                  </button>
+
+                  <button
+                    onClick={() => setCurrentAct(3)}
+                    className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 text-xs text-slate-300 hover:text-white transition-all text-center flex flex-col items-center gap-1"
+                  >
+                    <Gamepad2 className="w-4 h-4" style={{ color: theme.primary }} />
+                    <span>Play Mini-Game</span>
+                  </button>
+
+                  <button
+                    onClick={() => setCurrentAct(4)}
+                    className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 text-xs text-slate-300 hover:text-white transition-all text-center flex flex-col items-center gap-1"
+                  >
+                    <HelpCircle className="w-4 h-4" style={{ color: theme.primary }} />
+                    <span>Retake Quiz</span>
+                  </button>
+
+                  <button
+                    onClick={() => setIsVideoModalOpen(true)}
+                    className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 text-xs text-slate-300 hover:text-white transition-all text-center flex flex-col items-center gap-1"
+                  >
+                    <Film className="w-4 h-4" style={{ color: theme.primary }} />
+                    <span>Watch AI Film</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -366,4 +417,3 @@ export default function UniverseStage() {
     </CinematicLetterbox>
   );
 }
-

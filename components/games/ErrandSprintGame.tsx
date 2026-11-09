@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { soundEngine } from "@/lib/audio/sound-engine";
 import confetti from "canvas-confetti";
-import { ShoppingBag, Award, Heart } from "lucide-react";
+import { ShoppingBag, Award, Heart, Shield } from "lucide-react";
 
 interface MiniGameProps {
   onComplete: () => void;
@@ -12,25 +12,27 @@ interface MiniGameProps {
 
 export default function ErrandSprintGame({ onComplete, themeColor }: MiniGameProps) {
   const [itemsCollected, setItemsCollected] = useState<string[]>([]);
+  const [activeQuote, setActiveQuote] = useState("Collect the family dinner items for Arshiya Baji!");
   const [isWon, setIsWon] = useState(false);
 
   const marketItems = [
-    { name: "Royal Mithai Box 🍬", id: "mithai" },
-    { name: "Biryani Special Saffron 🌾", id: "saffron" },
-    { name: "Kashmiri Dry Fruits 🌰", id: "dryfruits" },
-    { name: "Crisp Evening Samosas 🥟", id: "samosas" },
-    { name: "Fresh Fragrant Mint 🌿", id: "mint" },
+    { name: "Royal Mithai Box 🍬", id: "mithai", quote: "Banagram's favorite dessert stash secured!" },
+    { name: "Arshad Bhai Special Biryani 🌾", id: "biryani", quote: "'Arshad bhaii!' Family dinner is on!" },
+    { name: "Shadaaoonn Energy Drink ⚡", id: "shadaaoonn", quote: "'Shadaaoonn!' Sprinting at maximum speed!" },
+    { name: "Aunty-Joke Memory Scroll 📜", id: "aunty_joke", quote: "The legendary aunty-joke! Still laughing!" },
+    { name: "Loyal Sibling Shield 🛡️", id: "shield", quote: "Standing right behind Arshiya Baji forever!" },
   ];
 
-  const handleCollect = (id: string) => {
-    if (itemsCollected.includes(id)) return;
+  const handleCollect = (item: { id: string; quote: string }) => {
+    if (itemsCollected.includes(item.id)) return;
     soundEngine.playSuccessChime();
-    const updated = [...itemsCollected, id];
+    const updated = [...itemsCollected, item.id];
     setItemsCollected(updated);
+    setActiveQuote(item.quote);
 
     if (updated.length === marketItems.length) {
       setIsWon(true);
-      confetti({ particleCount: 80, spread: 60 });
+      confetti({ particleCount: 85, spread: 65 });
     }
   };
 
@@ -41,7 +43,7 @@ export default function ErrandSprintGame({ onComplete, themeColor }: MiniGamePro
           <div className="flex items-center gap-2">
             <ShoppingBag className="w-5 h-5 text-amber-400" />
             <h3 className="font-cinematic text-base font-bold text-white">
-              Awez&apos;s Family Errand Sprint
+              Awez&apos;s Sibling Errand &amp; Joke Sprint
             </h3>
           </div>
           <span className="text-xs font-mono px-3 py-1 rounded-full bg-white/5 border border-white/10 text-amber-300">
@@ -49,8 +51,13 @@ export default function ErrandSprintGame({ onComplete, themeColor }: MiniGamePro
           </span>
         </div>
 
+        {/* Live Joke Ticker */}
+        <div className="p-3 mb-4 rounded-xl bg-amber-950/40 border border-amber-500/20 text-amber-200 text-xs font-mono font-bold animate-pulse">
+          {activeQuote}
+        </div>
+
         <p className="text-xs text-slate-300 mb-6">
-          Collect all the special ingredients for the family dinner gathering!
+          Collect all 5 items to prepare the family dinner gathering and unlock our secret jokes!
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
@@ -59,35 +66,37 @@ export default function ErrandSprintGame({ onComplete, themeColor }: MiniGamePro
             return (
               <button
                 key={item.id}
-                onClick={() => handleCollect(item.id)}
+                onClick={() => handleCollect(item)}
                 disabled={collected}
-                className={`p-3.5 rounded-xl border text-xs sm:text-sm font-semibold transition-all transform active:scale-95 ${
+                className={`p-3.5 rounded-2xl border text-xs sm:text-sm font-semibold transition-all transform hover:scale-105 active:scale-95 shadow-md flex items-center justify-between ${
                   collected
-                    ? "bg-emerald-950/40 border-emerald-500/50 text-emerald-300 line-through opacity-70"
-                    : "bg-white/5 border-white/10 hover:bg-white/10 text-slate-200 hover:scale-105"
+                    ? "bg-amber-500/20 border-amber-400/50 text-amber-200 opacity-80"
+                    : "bg-white/5 border-white/10 text-slate-300 hover:text-white hover:bg-white/10"
                 }`}
               >
-                {item.name}
+                <span>{item.name}</span>
+                <span className="text-xs font-mono font-bold">
+                  {collected ? "✓ Done" : "+ Take"}
+                </span>
               </button>
             );
           })}
         </div>
 
         {isWon && (
-          <div className="mt-4 p-5 rounded-2xl bg-amber-950/50 border border-amber-500/30 animate-in fade-in">
-            <div className="flex items-center justify-center gap-2 mb-2 text-amber-400">
-              <Award className="w-5 h-5" />
-              <h4 className="font-cinematic font-bold">Family Dinner Saved!</h4>
+          <div className="mt-4 p-5 rounded-2xl bg-amber-950/50 border border-amber-400/40 animate-in fade-in">
+            <div className="flex items-center justify-center gap-2 mb-2 text-amber-300">
+              <Shield className="w-5 h-5 text-amber-400" />
+              <h4 className="font-cinematic font-bold">Banagram Triumph!</h4>
             </div>
-            <p className="text-xs sm:text-sm text-slate-200 italic mb-4">
-              &ldquo;No one handles family business with as much heart, loyalty, and style as Awez!&rdquo;
+            <p className="text-xs text-slate-300 mb-4">
+              &ldquo;Arshad bhaii! Shadaaoonn!&rdquo; — Loyal brother, family champion, standing behind you always.
             </p>
             <button
               onClick={onComplete}
-              className="px-6 py-2.5 rounded-xl font-semibold text-white tracking-wide shadow-xl"
-              style={{ backgroundColor: themeColor }}
+              className="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs tracking-wider transition-all shadow-lg"
             >
-              Proceed to Awez&apos;s Quiz
+              Continue to Awez&apos;s Quiz
             </button>
           </div>
         )}
@@ -95,4 +104,3 @@ export default function ErrandSprintGame({ onComplete, themeColor }: MiniGamePro
     </div>
   );
 }
-
