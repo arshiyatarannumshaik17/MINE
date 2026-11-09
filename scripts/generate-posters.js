@@ -177,3 +177,4 @@ POSTERS.forEach((p) => {
 });
 
 console.log("All 12 universe posters generated successfully!");
+
